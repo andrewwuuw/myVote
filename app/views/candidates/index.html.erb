@@ -1,3 +1,27 @@
 <h1>Candidate List</h1>
 
-<%= link_to "新增候選人", new_candidate_path %>
+<table class= "table">
+  <thead>
+    <tr>
+      <td>name</td>
+      <td>party</td>
+      <td>age</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @candidates.each do |candidate| %>
+      <tr>
+        <td><%= link_to candidate.name,candidate_path(candidate) %></td>
+        <td><%= candidate.party %></td>
+        <td><%= candidate.age %></td>
+        <td><%= link_to "edit", edit_candidate_path(candidate), class:"btn btn-success" %></td>
+        <td><%= link_to "delete", candidate_path(candidate), method:"delete", data: {confirm: "Are you sure?!"}%></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+  </tfoot>
+</table>
+
+<%= link_to "add candidate", new_candidate_path, class: "btn btn-danger" %>
