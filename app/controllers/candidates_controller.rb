@@ -8,17 +8,18 @@ class CandidatesController < ApplicationController
   end
 
   def show
+    @candidate = Candidate.find_by(id: params[:id])
   end
 
   def create
     # Strong Parameters(require抓取candidate有關的，name party age欄位)
     clean_params = params.require(:candidate).permit(:name, :party, :age)
-    candidate = Candidate.new(clean_params)
+    @candidate = Candidate.new(clean_params)
 
-    if candidate.save
+    if @candidate.save
       redirect_to candidates_path
     else
-      #...
+      render "new" #go to new.html.erb
     end
   end
 
@@ -33,7 +34,7 @@ class CandidatesController < ApplicationController
     if @candidate.update(clean_params)
       redirect_to candidates_path
     else
-      #...
+      render "edit" #go to edit.html.erb
     end
   end
 

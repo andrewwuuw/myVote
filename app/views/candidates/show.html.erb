@@ -1,1 +1,6 @@
-<h1>Show Profile</h1>
+<h1>Candidate: <%= @candidate.name %></h1>
+
+Party: <%= @candidate.party %><br/>
+Age: <%= @candidate.age %><br/>
+
+<%= link_to "Back", candidates_path, class: "btn btn-danger" %>
