@@ -1,0 +1,8 @@
+<h1>add candidate</h1>
+
+<%= form_for(@candidate) do |f| %>
+  name: <%= f.text_field :name %><br/>
+  party: <%= f.text_field :party %><br/>
+  age: <%= f.text_field :age %><br/>
+  <%= f.submit %>
+<% end %>
