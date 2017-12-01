@@ -8,12 +8,11 @@ class CandidatesController < ApplicationController
   end
 
   def show
-    @candidate = Candidate.find_by(id: params[:id])
+    find_candidate
   end
 
   def create
-    # Strong Parameters(require抓取candidate有關的，name party age欄位)
-    clean_params = params.require(:candidate).permit(:name, :party, :age)
+    #create a new candidate
     @candidate = Candidate.new(clean_params)
 
     if @candidate.save
@@ -24,12 +23,12 @@ class CandidatesController < ApplicationController
   end
 
   def edit
-    @candidate = Candidate.find_by(id: params[:id])
+    find_candidate
   end
 
   def update
-    clean_params = params.require(:candidate).permit(:name, :party, :age)
-    @candidate = Candidate.find_by(id: params[:id])
+    #edit candidate
+    find_candidate
 
     if @candidate.update(clean_params)
       redirect_to candidates_path
@@ -39,9 +38,20 @@ class CandidatesController < ApplicationController
   end
 
   def destroy
-    @candidate = Candidate.find_by(id: params[:id])
+    #destroy candidate
+    find_candidate
+    
     @candidate.destroy
     redirect_to candidates_path
   end
 
+  private
+  def clean_params
+    # Strong Parameters(require抓取candidate有關的，name party age欄位)
+    params.require(:candidate).permit(:name, :party, :age)
+  end
+
+  def find_candidate
+    @candidate = Candidate.find_by(id: params[:id])
+  end
 end
