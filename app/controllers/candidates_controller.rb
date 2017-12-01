@@ -1,4 +1,7 @@
 class CandidatesController < ApplicationController
+
+  before_action :find_candidate, only:[:show, :edit, :update, :destroy]
+
   def index
     @candidates = Candidate.all
   end
@@ -8,7 +11,7 @@ class CandidatesController < ApplicationController
   end
 
   def show
-    find_candidate
+
   end
 
   def create
@@ -16,22 +19,20 @@ class CandidatesController < ApplicationController
     @candidate = Candidate.new(clean_params)
 
     if @candidate.save
-      redirect_to candidates_path
+      redirect_to candidates_path, notice: "Candidate was created successfully!"
     else
       render "new" #go to new.html.erb
     end
   end
 
   def edit
-    find_candidate
+
   end
 
   def update
     #edit candidate
-    find_candidate
-
     if @candidate.update(clean_params)
-      redirect_to candidates_path
+      redirect_to candidates_path, notice: "Candidate was updated successfully!"
     else
       render "edit" #go to edit.html.erb
     end
@@ -39,10 +40,8 @@ class CandidatesController < ApplicationController
 
   def destroy
     #destroy candidate
-    find_candidate
-    
     @candidate.destroy
-    redirect_to candidates_path
+    redirect_to candidates_path, notice: "Candidate was destroied successfully!"
   end
 
   private
