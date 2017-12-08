@@ -3,4 +3,6 @@
 Party: <%= @candidate.party %><br/>
 Age: <%= @candidate.age %><br/>
 
+Is he/she a adult ? = <%= show_your_age(@candidate.age) %><br/>
+
 <%= link_to "Back", candidates_path, class: "btn btn-danger" %>

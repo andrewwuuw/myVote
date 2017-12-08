@@ -47,7 +47,7 @@ class CandidatesController < ApplicationController
   private
   def clean_params
     # Strong Parameters(require抓取candidate有關的，name party age欄位)
-    params.require(:candidate).permit(:name, :party, :age)
+    params.require( :candidate ).permit(:name, :party, :age, :comment)
   end
 
   def find_candidate
