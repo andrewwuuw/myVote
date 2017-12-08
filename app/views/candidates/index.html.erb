@@ -3,23 +3,29 @@
 <table class= "table">
   <thead>
     <tr>
+      <td>count</td>
       <td>name</td>
       <td>party</td>
       <td>age</td>
       <td>comment</td>
-      <td>update</td>
-      <td>destroy</td>
+      <td>funtion</td>
     </tr>
   </thead>
   <tbody>
     <% @candidates.each do |candidate| %>
       <tr>
+        <td>
+          <%= candidate.vote_logs.count %>
+          <%= link_to "Vote!", vote_candidate_path(candidate), method:"post", class: "btn btn-danger btn-xs" %>
+        </td>
         <td><%= link_to candidate.name,candidate_path(candidate) %></td>
         <td><%= candidate.party %></td>
         <td><%= candidate.age %></td>
         <td><%= candidate.comment %></td>
-        <td><%= link_to "edit", edit_candidate_path(candidate), class:"btn btn-success" %></td>
-        <td><%= link_to "delete", candidate_path(candidate), method:"delete", data: {confirm: "Are you sure?!"}%></td>
+        <td>
+          <%= link_to "edit", edit_candidate_path(candidate), class:"btn btn-success" %>
+          <%= link_to "delete", candidate_path(candidate), method:"delete", data: {confirm: "Are you sure?!"}%>
+        </td>
       </tr>
     <% end %>
   </tbody>

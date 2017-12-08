@@ -1,8 +1,11 @@
 class CandidatesController < ApplicationController
 
-  before_action :find_candidate, only:[:show, :edit, :update, :destroy]
+  before_action :find_candidate, only:[:show, :edit, :update, :destroy, :vote]
+
+#  include CandidatesHelper  (讓CandidatesHelper模組用include方法加入)
 
   def index
+#    show_your_age(18)
     @candidates = Candidate.all
   end
 
@@ -42,6 +45,16 @@ class CandidatesController < ApplicationController
     #destroy candidate
     @candidate.destroy
     redirect_to candidates_path, notice: "Candidate was destroied successfully!"
+  end
+
+  def vote
+    # @candidate.update(counter: @candidate.counter + 1)
+    # @candidate.increment!(:counter)
+
+    @candidate.vote_logs.create(ip_address: request.remote_ip) #（從候選人角度，建立投票紀錄並記錄投票者ip）
+    
+    # VoteLog.create(ip_address: "123", candidate_id: 123) (從投票者觀點做，新增VoteLog內容有ip跟投票對象)
+    redirect_to candidates_path, notice: "Voted!"
   end
 
   private
