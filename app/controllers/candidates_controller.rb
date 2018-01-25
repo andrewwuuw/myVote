@@ -52,7 +52,7 @@ class CandidatesController < ApplicationController
     # @candidate.increment!(:counter)
 
     @candidate.vote_logs.create(ip_address: request.remote_ip) #（從候選人角度，建立投票紀錄並記錄投票者ip）
-    
+
     # VoteLog.create(ip_address: "123", candidate_id: 123) (從投票者觀點做，新增VoteLog內容有ip跟投票對象)
     redirect_to candidates_path, notice: "Voted!"
   end
